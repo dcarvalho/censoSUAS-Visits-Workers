@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exploring data from Censo SUAS</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Exploring data from Censo SUAS">
+  <meta name="author" content="Davi Lopes Carvalho">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Exploring data from Censo SUAS</h1>
+    <h2>Censo SUAS 2015 - Number of families assisted versus Number of Workers of CRAS</h2>
+    <p>Davi Lopes Carvalho<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Censo SUAS</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Censo SUAS is a census of the Unique System of Social Assitance (SUAS) of Brazil. 
+This census occur every year and is collected data from the equipaments and human resources of SUAS. </p>
+
+<p>This presentation is part of a final project of the Course Developing Data Products from John Hopkins University (Coursera).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Loading Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The data used in the application that we will show in this presentation was downloaded from <a href="http://aplicacoes.mds.gov.br/sagi/snas/vigilancia/index2.php">http://aplicacoes.mds.gov.br/sagi/snas/vigilancia/index2.php</a>.</p>
+
+<p>And can be loaded in R using these commands</p>
+
+<pre><code class="r">download.file(url = &quot;http://aplicacoes.mds.gov.br/sagi/dicivip_datain/ckfinder/userfiles/files/Censo_SUAS_2015/CensoSUAS2015_CRAS.zip&quot;, destfile = &quot;data.zip&quot;, method = &quot;curl&quot;)
+unzip(zipfile = &quot;data.zip&quot;)
+data&lt;-read.csv2(&quot;CRAS/CensoSUAS_2015_CRAS_dadosgerais_divulgacao.csv&quot;,fileEncoding = &quot;ISO-8859-1&quot; )
+</code></pre>
+
+<p>The csv file has data from more than 8 thousands CRAS more than 450 variables.
+For this application we will use five variables. Below we have the code to subset the data.</p>
+
+<pre><code class="r">data&lt;-data[,c( &quot;UF&quot;, &quot;Município&quot;, &quot;Porte_pop2010&quot;, &quot;nu_trabalhadores&quot;, &quot;q14_1&quot;)]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Shiny Application</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The shiny application shows a graph that has on y-axis the number of families that were assisted by a CRAS (Social Assistance Reference Center) and on x-axis the number of workers of that CRAS.</p>
+
+<p>There is two kinds of filters that you can use. On the first filter you select the state you want to see on the plot and the second filter you can choose the size of the cities which the CRAS are located.</p>
+
+<p>The graph shows two red lines on the means of y-axis and x-axis. And each size of city has a line that show the linear regression of points plotted.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    <p><iframe src="https://davicarvalho.shinyapps.io/censoSUAS-Visits-Workers/" scrolling="auto"></iframe> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Censo SUAS'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Loading Data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Shiny Application'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='NA'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
